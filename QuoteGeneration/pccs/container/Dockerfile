@@ -1,5 +1,5 @@
 # Use multi-stage builds to reduce final image size
-FROM ubuntu:23.04 AS builder
+FROM ubuntu:23.04@sha256:5a828e28de105c3d7821c4442f0f5d1c52dc16acf4999d5f31a3bc0f03f06edd AS builder
 
 # Define arguments used across multiple stages
 ARG DCAP_VERSION=DCAP_1.20
@@ -41,7 +41,7 @@ RUN npm config set proxy $http_proxy \
     && npm install
 
 # Start final image build
-FROM ubuntu:23.04
+FROM ubuntu:23.04@sha256:5a828e28de105c3d7821c4442f0f5d1c52dc16acf4999d5f31a3bc0f03f06edd
 
 # Create user and group before copying files
 ARG USER=pccs
