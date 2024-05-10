@@ -19,16 +19,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Install prerequisites
+      run: sudo apt-get install libcurl4-openssl-dev libboost-dev libboost-system-dev libboost-thread-dev
     - uses: actions/checkout@44c2b7a8a4ea60a981eaca3cf939b5f4305c123b # v4.1.5
-    - name: install libboost
-      run: sudo apt-get install libboost-dev libboost-system-dev libboost-thread-dev
     - name: Checkout submodules
       run: git submodule update --init --recursive
     - name: Download prebuilt
       run: cd QuoteGeneration; ./download_prebuilt.sh; cd ..
-    - name: download SDK
+    - name: Download SDK
       run: wget https://download.01.org/intel-sgx/sgx-linux/2.24/distro/ubuntu22.04-server/sgx_linux_x64_sdk_2.24.100.3.bin
-    - name: install SDK
+    - name: Install SDK
       run: chmod +x *.bin; echo yes | ./sgx_linux_x64_sdk_2.*.bin
-    - name: build 
+    - name: Build 
       run: source sgxsdk/environment; make all
